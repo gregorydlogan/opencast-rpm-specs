@@ -78,7 +78,7 @@ educational videos.
 
 
 %prep
-%define fromsource %( if [ -d opencast%{ocversion}-%{ocdist}-%{srcversion}/opencast-%{srcversion}/build ]; then echo "1"; else echo "0"; fi )
+%define fromsource %( if [ -d BUILD/opencast-%{srcversion}/build ]; then echo "1"; else echo "0"; fi )
 
 %if %fromsource
 %setup -q -c -a 0 -a 1
