@@ -115,14 +115,14 @@ ln -s %{_sharedstatedir}/opencast/instances \
 
 # Add custom jetty.xml
 # Otherwise Karaf will attempt to do that and fail to start
-cp %{SOURCE2} %{buildroot}%{_sysconfdir}/opencast/jetty.xml
+cp %{SOURCE0} %{buildroot}%{_sysconfdir}/opencast/jetty.xml
 
 # Install logrotate configuration
-install -p -D -m 0644 %{SOURCE4} \
+install -p -D -m 0644 %{SOURCE1} \
    %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
 
 # Install workaround dummy file in /etc
-install -p -D -m 0644 %{SOURCE5} \
+install -p -D -m 0644 %{SOURCE2} \
    %{buildroot}%{_sysconfdir}/opencast
 
 # Install Systemd unit file
