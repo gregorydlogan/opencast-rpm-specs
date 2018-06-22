@@ -4,7 +4,7 @@
 %define __requires_exclude_from ^.*\\.jar$
 %define __provides_exclude_from ^.*\\.jar$
 
-%define majorversion 4
+%define majorversion 5
 %define minorversion x
 %define uid   opencast
 %define gid   opencast
@@ -200,6 +200,9 @@ fi
 
 
 %changelog
+* Fri Jun 22 2018 Greg Logan <gregorydlogan@gmail.com> 5.x
+- Update to Opencast 5.x
+
 * Fri Jun 22 2018 Greg Logan <gregorydlogan@gmail.com> 4.x
 - Update to Opencast 4.x
 
