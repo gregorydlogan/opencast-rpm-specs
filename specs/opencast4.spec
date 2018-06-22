@@ -66,10 +66,9 @@ educational videos.
 
 
 %prep
-%setup -c -D -T
+%setup -n opencast -D -T
 
 %build
-cd opencast-%{version}
 
 # Prepare base distribution
 cd build
@@ -95,7 +94,7 @@ mkdir -m 755 -p %{buildroot}/srv/opencast
 mkdir -m 755 -p %{buildroot}%{_localstatedir}/log/opencast
 
 # Move files into the package filesystem
-mv opencast-%{version}/build/opencast-dist-%{ocdist} \
+mv build/opencast-dist-%{ocdist} \
    %{buildroot}%{_datadir}/opencast
 mv %{buildroot}%{_datadir}/opencast/etc \
    %{buildroot}%{_sysconfdir}/opencast
