@@ -5,11 +5,14 @@
 %define __provides_exclude_from ^.*\\.jar$
 
 %define majorversion 5
-%define minorversion x
 %define uid   opencast
 %define gid   opencast
 %define nuid  7967
 %define ngid  7967
+
+%if "%{?minorversion}" == ""
+%define minorversion 0
+%endif
 
 %if "%{?ocdist}" == ""
 %define ocdist allinone
@@ -200,11 +203,11 @@ fi
 
 
 %changelog
-* Fri Jun 22 2018 Greg Logan <gregorydlogan@gmail.com> 5.x
-- Update to Opencast 5.x
+* Fri Jun 29 2018 Greg Logan <gregorydlogan@gmail.com> 5.0-1
+- Update to Opencast 5.0
 
-* Fri Jun 22 2018 Greg Logan <gregorydlogan@gmail.com> 4.x
-- Update to Opencast 4.x
+* Sun Jun 03 2018 Lars Kiesow <lkiesow@uos.de> 4.4-1
+- Update to Opencast 4.4
 
 * Sun Jun 03 2018 Lars Kiesow <lkiesow@uos.de> 4.4-1
 - Update to Opencast 4.4
