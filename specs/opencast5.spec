@@ -4,22 +4,22 @@
 %define __requires_exclude_from ^.*\\.jar$
 %define __provides_exclude_from ^.*\\.jar$
 
-%define majorversion 5
+%define srcversion 5.0
 %define uid   opencast
 %define gid   opencast
 %define nuid  7967
 %define ngid  7967
 
-%if "%{?minorversion}" == ""
-%define minorversion 0
-%endif
-
 %if "%{?ocdist}" == ""
 %define ocdist allinone
 %endif
 
-Name:          opencast%{majorversion}-%{ocdist}
-Version:       %{majorversion}.%{minorversion}
+%if "%{?tarversion}" == ""
+%define tarversion %{version}
+%endif
+
+Name:          opencast5-%{ocdist}
+Version:       %{srcversion}
 Release:       1%{?dist}
 Summary:       Open Source Lecture Capture & Video Management Tool
 
@@ -76,7 +76,7 @@ educational videos.
 # Prepare base distribution
 cd build
 find ./* -maxdepth 0 -type d -exec rm -rf '{}' \;
-tar xf opencast-dist-%{ocdist}-%{version}.tar.gz
+tar xf opencast-dist-%{ocdist}-%{tarversion}.tar.gz
 
 # Fix newline character at end of configuration files
 find opencast-dist-%{ocdist}/etc -name '*.xml' \
@@ -97,7 +97,7 @@ mkdir -m 755 -p %{buildroot}/srv/opencast
 mkdir -m 755 -p %{buildroot}%{_localstatedir}/log/opencast
 
 # Move files into the package filesystem
-mv opencast-dist-%{ocdist} \
+mv build/opencast-dist-%{ocdist} \
    %{buildroot}%{_datadir}/opencast
 mv %{buildroot}%{_datadir}/opencast/etc \
    %{buildroot}%{_sysconfdir}/opencast
