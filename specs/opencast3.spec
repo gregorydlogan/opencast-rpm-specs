@@ -14,7 +14,11 @@
 %define ocdist allinone
 %endif
 
-Name:          opencast3-%{ocdist}
+%if "%{?tarversion}" == ""
+%define tarversion %{version}
+%endif
+
+Name:          opencast4-%{ocdist}
 Version:       %{srcversion}
 Release:       1%{?dist}
 Summary:       Open Source Lecture Capture & Video Management Tool
@@ -22,24 +26,12 @@ Summary:       Open Source Lecture Capture & Video Management Tool
 Group:         Applications/Multimedia
 License:       ECL 2.0
 URL:           http://opencast.org
-Source0:       https://github.com/opencast/opencast/archive/%{srcversion}.tar.gz
-Source1:       opencast-maven-repo-%{srcversion}.tar.xz
-Source2:       jetty.xml
-Source3:       settings.xml
-Source4:       opencast.logrotate
-Source5:       org.apache.aries.transaction.cfg
+Source0:       jetty.xml
+Source1:       opencast.logrotate
+Source2:       org.apache.aries.transaction.cfg
 
-BuildRequires: bzip2
-BuildRequires: ffmpeg >= 3
-BuildRequires: hunspell >= 1.2.8
-BuildRequires: java-devel >= 1:1.7.0
-BuildRequires: maven >= 3.1
 BuildRequires: sed
-BuildRequires: sox >= 14
 BuildRequires: tar
-BuildRequires: tesseract >= 3
-BuildRequires: tesseract-langpack-deu >= 3
-BuildRequires: xz
 BuildRequires: gzip
 
 Requires: ffmpeg >= 3
@@ -78,22 +70,14 @@ educational videos.
 
 
 %prep
-%setup -q -c -a 0 -a 1
-
+%setup -n opencast -D -T
 
 %build
-# Maven configuration
-cp %{SOURCE3} settings.xml
-sed -i "s#BUILDPATH#$(pwd)#" settings.xml
-
-# Build Opencast
-cd opencast-%{srcversion}
-mvn -o -s ../settings.xml clean install
 
 # Prepare base distribution
 cd build
 find ./* -maxdepth 0 -type d -exec rm -rf '{}' \;
-tar xf opencast-dist-%{ocdist}-%{srcversion}.tar.gz
+tar xf opencast-dist-%{ocdist}-%{tarversion}.tar.gz
 
 # Fix newline character at end of configuration files
 find opencast-dist-%{ocdist}/etc -name '*.xml' \
@@ -114,7 +98,7 @@ mkdir -m 755 -p %{buildroot}/srv/opencast
 mkdir -m 755 -p %{buildroot}%{_localstatedir}/log/opencast
 
 # Move files into the package filesystem
-mv opencast-%{srcversion}/build/opencast-dist-%{ocdist} \
+mv build/opencast-dist-%{ocdist} \
    %{buildroot}%{_datadir}/opencast
 mv %{buildroot}%{_datadir}/opencast/etc \
    %{buildroot}%{_sysconfdir}/opencast
@@ -134,14 +118,14 @@ ln -s %{_sharedstatedir}/opencast/instances \
 
 # Add custom jetty.xml
 # Otherwise Karaf will attempt to do that and fail to start
-cp %{SOURCE2} %{buildroot}%{_sysconfdir}/opencast/jetty.xml
+cp %{SOURCE0} %{buildroot}%{_sysconfdir}/opencast/jetty.xml
 
 # Install logrotate configuration
-install -p -D -m 0644 %{SOURCE4} \
+install -p -D -m 0644 %{SOURCE1} \
    %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
 
 # Install workaround dummy file in /etc
-install -p -D -m 0644 %{SOURCE5} \
+install -p -D -m 0644 %{SOURCE2} \
    %{buildroot}%{_sysconfdir}/opencast
 
 # Install Systemd unit file
