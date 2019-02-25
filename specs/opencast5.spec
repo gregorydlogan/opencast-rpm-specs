@@ -72,13 +72,6 @@ educational videos.
 %setup -n opencast -D -T
 
 %build
-# Maven configuration
-cp %{SOURCE3} settings.xml
-sed -i "s#BUILDPATH#$(pwd)#" settings.xml
-
-# Build Opencast
-cd opencast-%{srcversion}
-mvn -o -s ../settings.xml clean install
 
 # Prepare base distribution
 cd build

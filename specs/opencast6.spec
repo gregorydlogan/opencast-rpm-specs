@@ -76,7 +76,7 @@ educational videos.
 # Prepare base distribution
 cd build
 find ./* -maxdepth 0 -type d -exec rm -rf '{}' \;
-tar xf opencast-dist-%{ocdist}-*.tar.gz
+tar xf opencast-dist-%{ocdist}-%{tarversion}.tar.gz
 
 # Fix newline character at end of configuration files
 find opencast-dist-%{ocdist}/etc -name '*.xml' \
