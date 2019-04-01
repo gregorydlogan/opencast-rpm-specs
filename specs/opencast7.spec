@@ -4,7 +4,7 @@
 %define __requires_exclude_from ^.*\\.jar$
 %define __provides_exclude_from ^.*\\.jar$
 
-%define srcversion 6.2
+%define srcversion 7.0
 %define uid   opencast
 %define gid   opencast
 %define nuid  7967
@@ -18,7 +18,7 @@
 %define tarversion %{version}
 %endif
 
-Name:          opencast6-%{ocdist}
+Name:          opencast7-%{ocdist}
 Version:       %{srcversion}
 Release:       1%{?dist}
 Summary:       Open Source Lecture Capture & Video Management Tool
