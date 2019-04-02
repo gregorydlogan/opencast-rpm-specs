@@ -149,7 +149,7 @@ echo "export KARAF_ETC=%{_sysconfdir}/opencast" >> \
 
 # Patch log file locations
 sed -i 's#path.logs: ${karaf.data}/log#path.logs: %{_localstatedir}/log/opencast#' \
-   %{buildroot}%{_sysconfdir}/opencast/index/adminui/settings.yml
+   %{buildroot}%{_sysconfdir}/opencast/elasticsearch.yml
 sed -i 's#file=${karaf.data}/log#file=%{_localstatedir}/log/opencast#' \
    %{buildroot}%{_sysconfdir}/opencast/org.ops4j.pax.logging.cfg
 
