@@ -4,7 +4,7 @@
 %define __requires_exclude_from ^.*\\.jar$
 %define __provides_exclude_from ^.*\\.jar$
 
-%define srcversion 8.0
+%define srcversion 8.x
 %define uid   opencast
 %define gid   opencast
 %define nuid  7967
