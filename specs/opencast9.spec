@@ -4,7 +4,7 @@
 %define __requires_exclude_from ^.*\\.jar$
 %define __provides_exclude_from ^.*\\.jar$
 
-%define srcversion 6.2
+%define srcversion 9.x
 %define uid   opencast
 %define gid   opencast
 %define nuid  7967
@@ -18,7 +18,7 @@
 %define tarversion %{version}
 %endif
 
-Name:          opencast6-%{ocdist}
+Name:          opencast9-%{ocdist}
 Version:       %{srcversion}
 Release:       1%{?dist}
 Summary:       Open Source Lecture Capture & Video Management Tool
@@ -46,7 +46,7 @@ Requires: nc
 Requires: sed
 
 %if "%{?ocdist}" == "allinone"
-Requires: activemq-dist >= 5.10
+Requires: activemq-dist >= 5.14
 %endif
 
 BuildRequires:     systemd
@@ -148,9 +148,7 @@ echo "export KARAF_ETC=%{_sysconfdir}/opencast" >> \
    %{buildroot}%{_sysconfdir}/opencast/setenv
 
 # Patch log file locations
-sed -i 's#path.logs: ${karaf.data}/log#path.logs: %{_localstatedir}/log/opencast#' \
-   %{buildroot}%{_sysconfdir}/opencast/index/adminui/settings.yml
-sed -i 's#file=${karaf.data}/log#file=%{_localstatedir}/log/opencast#' \
+sed -i 's#fileName *= *${karaf.data}/log#fileName = %{_localstatedir}/log/opencast#' \
    %{buildroot}%{_sysconfdir}/opencast/org.ops4j.pax.logging.cfg
 
 # Patch storage dir
@@ -207,12 +205,6 @@ fi
 
 
 %changelog
-* Wed Apr 03 2019 Lars Kiesow <lkiesow@uos.de> 6.4-1
-- Update to Opencast 6.4
-
-* Tue Mar 05 2019 Lars Kiesow <lkiesow@uos.de> 6.3-1
-- Update to Opencast 6.3
-
 * Mon Dec 10 2018 Lars Kiesow <lkiesow@uos.de> 6.x-1
 - Update to Opencast 6.0
 

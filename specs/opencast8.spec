@@ -46,7 +46,7 @@ Requires: nc
 Requires: sed
 
 %if "%{?ocdist}" == "allinone"
-Requires: activemq-dist >= 5.10
+Requires: activemq-dist >= 5.14
 %endif
 
 BuildRequires:     systemd
@@ -148,9 +148,7 @@ echo "export KARAF_ETC=%{_sysconfdir}/opencast" >> \
    %{buildroot}%{_sysconfdir}/opencast/setenv
 
 # Patch log file locations
-sed -i 's#path.logs: ${karaf.data}/log#path.logs: %{_localstatedir}/log/opencast#' \
-   %{buildroot}%{_sysconfdir}/opencast/elasticsearch.yml
-sed -i 's#file=${karaf.data}/log#file=%{_localstatedir}/log/opencast#' \
+sed -i 's#fileName *= *${karaf.data}/log#fileName = %{_localstatedir}/log/opencast#' \
    %{buildroot}%{_sysconfdir}/opencast/org.ops4j.pax.logging.cfg
 
 # Patch storage dir
